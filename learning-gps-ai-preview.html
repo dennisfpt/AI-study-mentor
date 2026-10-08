@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Learning GPS AI – Xem trước giao diện</title>
+<style>
+:root{--r:#d62839;--rd:#a4161a;--rl:#fdecee;--bg:#faf7f7;--gray:#6f6a6b;--green:#2e9e5b;--greenbg:#e6f6ec;
+--page:#f6e6e8;--ptext:#3a1418;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--page:#1f1012;--ptext:#fbe7e9}}
+:root[data-theme="dark"]{--page:#1f1012;--ptext:#fbe7e9}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--page);color:var(--ptext);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;min-height:100vh}
+h1{font-size:20px;margin:0 0 4px}.top{text-align:center;padding:20px 12px 8px}.top p{margin:0;opacity:.7;font-size:14px}
+.sw{display:flex;gap:8px;overflow-x:auto;padding:10px 14px;max-width:820px;margin:0 auto}
+.sw button{flex:none;border:0;border-radius:99px;padding:8px 14px;background:#fff;color:var(--r);font-size:13px;cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.sw button.on{background:var(--r);color:#fff}
+.phone{width:min(100%,380px);height:780px;margin:8px auto 28px;background:#fff;border-radius:42px;border:10px solid #2a1215;overflow:hidden;display:flex;flex-direction:column;color:#2a1215;box-shadow:0 22px 50px rgba(166,22,26,.28)}
+.scr{flex:1;overflow-y:auto;padding:18px 16px;background:var(--bg);display:flex;flex-direction:column;gap:12px}
+.card{background:#fff;border-radius:20px;padding:14px;box-shadow:0 2px 8px rgba(120,20,30,.07);display:flex;flex-direction:column;gap:6px}
+.lav{background:var(--rl)}.gr{background:var(--greenbg);color:var(--green)}
+.hero{background:linear-gradient(135deg,var(--r),var(--rd));color:#fff;border-radius:28px;padding:22px 18px;text-align:center;display:flex;flex-direction:column;gap:8px;align-items:center}
+.hero h2{color:#fff;font-size:27px}.hero .sub{color:#ffe3e5}
+.btn{border:0;border-radius:16px;background:linear-gradient(135deg,var(--r),var(--rd));color:#fff;height:50px;font-weight:700;font-size:15px;width:100%;cursor:pointer;flex:none;box-shadow:0 6px 14px rgba(214,40,57,.3)}
+.btn.w{background:#fff;color:var(--r);width:auto;height:40px;padding:0 14px;font-size:13px;box-shadow:none}
+.btn.o{background:#fff;color:var(--r);border:2px solid var(--r);box-shadow:none}
+.ghost{background:none;border:0;color:var(--r);padding:6px;cursor:pointer;font-size:14px;font-weight:600}
+h2{margin:0;font-size:22px;color:var(--rd)}h3{margin:0;font-size:15px}.sub{color:var(--gray);font-size:13px}
+.chips{display:flex;gap:8px;overflow-x:auto}.chip{flex:none;background:var(--rl);color:var(--r);border-radius:99px;padding:7px 13px;font-size:12px;font-weight:600}.chip.on{background:var(--r);color:#fff}
+.bar{height:8px;border-radius:9px;background:var(--rl);overflow:hidden}.bar i{display:block;height:100%;background:var(--r)}
+.row{display:flex;align-items:center;gap:12px;justify-content:space-between}
+.logo{width:72px;height:72px;border-radius:24px;background:#fff;color:var(--r);display:grid;place-items:center;font-size:38px;box-shadow:0 8px 20px rgba(0,0,0,.18)}
+.logo.s{background:linear-gradient(135deg,var(--r),var(--rd));color:#fff;margin:4px auto}
+.c{text-align:center}.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.tile{background:#fff;border-radius:16px;padding:10px 2px;text-align:center;font-size:10px;cursor:pointer;border:2px solid transparent}.tile b{display:block;font-size:22px;font-weight:400}.tile.on{background:var(--rl);border-color:var(--r)}
+.in{background:#fff;border:1.5px solid #ecd9db;border-radius:14px;padding:13px;color:var(--gray);font-size:14px}
+.lvl{cursor:pointer;border:2px solid transparent}.lvl.on{border-color:var(--r);background:var(--rl)}
+.step{cursor:pointer}.num{width:34px;height:34px;border-radius:50%;background:var(--rl);color:var(--r);display:grid;place-items:center;font-weight:700;flex:none}.num.on{background:var(--r);color:#fff}
+.tabs{display:flex;background:var(--rl);border-radius:14px;padding:4px}.tabs div{flex:1;text-align:center;padding:9px;border-radius:10px;font-size:13px;font-weight:600;color:var(--r)}.tabs .on{background:var(--r);color:#fff}
+pre{margin:0;background:var(--bg);border-radius:14px;padding:12px;font-size:13px}
+.bubble{align-self:flex-end;background:var(--rl);border-radius:18px;padding:11px 13px;font-size:14px;max-width:85%}
+.opt{background:#fff;border-radius:16px;padding:13px;font-size:14px}.opt.ok{background:var(--greenbg);border:2px solid var(--green);color:var(--green);font-weight:700}
+.or{display:flex;align-items:center;gap:8px;color:var(--gray);font-size:12px}.or:before,.or:after{content:"";flex:1;height:1px;background:#e8d5d7}
+.soc{display:flex;gap:8px}.soc div{flex:1;text-align:center;background:#fff;border:1.5px solid #ecd9db;border-radius:14px;padding:11px 0;font-size:12px;font-weight:600}
+.nav{display:flex;background:#fff;border-top:1px solid #f1e0e2;padding:8px 4px}.nav div{flex:1;text-align:center;font-size:10px;color:var(--gray);cursor:pointer}.nav div.on{color:var(--r);font-weight:700}.nav b{display:block;font-size:18px;font-weight:400}
+.cam{position:relative;height:330px;border-radius:24px;background:linear-gradient(160deg,#3a2a2c,#16090b);overflow:hidden;display:grid;place-items:center;flex:none}
+.paper{background:#fff;color:#2a1215;border-radius:10px;padding:26px 18px;font-size:20px;font-family:Georgia,serif;transform:rotate(-2deg);width:74%;text-align:center}
+.fr{position:absolute;inset:34px 26px;border:3px solid #fff;border-radius:22px;opacity:.9}
+.sl{position:absolute;left:30px;right:30px;height:3px;background:var(--r);box-shadow:0 0 14px var(--r);animation:sc 2.2s ease-in-out infinite}
+@keyframes sc{0%,100%{top:50px}50%{top:275px}}
+.shut{width:68px;height:68px;border-radius:50%;border:5px solid var(--rl);background:var(--r);cursor:pointer;box-shadow:0 6px 16px rgba(214,40,57,.4);flex:none}
+.ov{position:absolute;inset:0;background:rgba(22,9,11,.8);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;font-weight:600}
+.spin{width:36px;height:36px;border-radius:50%;border:4px solid #ffffff55;border-top-color:#fff;animation:rot .8s linear infinite}@keyframes rot{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+<div class="top"><h1>Learning GPS AI</h1><p>Xem trước giao diện – bấm các nút trong màn hình để chuyển trang</p></div>
+<div class="sw" id="sw"></div>
+<div class="phone"><div class="scr" id="scr"></div><div id="nav"></div></div>
+<script>
+const B=(t,g,c='')=>`<button class="btn ${c}" data-go="${g}">${t}</button>`;
+const bar=p=>`<div class="bar"><i style="width:${p}%"></i></div>`;
+const chips=a=>`<div class="chips">${a.map((x,i)=>`<span class="chip">${x}</span>`).join('')}</div>`;
+const prog=(n,p)=>`<div class="card"><div class="row"><b>${n}</b><b style="color:var(--r)">${p}%</b></div>${bar(p)}</div>`;
+const step=(n,t,s,st,g='')=>`<div class="card step" ${g?`data-go="${g}"`:''}><div class="row" style="justify-content:flex-start"><div class="num ${st?'on':''}">${st==2?'✓':n}</div><div style="flex:1"><b>${t}</b><div class="sub">${s}</div></div><span>${st==2?'✅':'›'}</span></div></div>`;
+const day=(d,t,s,g='')=>`<div class="card ${s==1?'lav':''}" ${g?`data-go="${g}" style="cursor:pointer"`:''}><div class="row"><span class="sub" style="width:56px">${d}</span><span style="flex:1;${s==1?'font-weight:700':''}">${t}</span><span>${s==2?'✅':s==1?'🔴':'⚪'}</span></div></div>`;
+const inp=t=>`<div class="in">${t}</div>`;
+const soc=`<div class="or">hoặc tiếp tục với</div><div class="soc"><div>Google</div><div>Apple ID</div><div>SSO Trường</div></div>`;
+const lv=(e,t,s,on)=>`<div class="card lvl ${on?'on':''}"><div class="row" style="justify-content:flex-start"><span style="font-size:26px">${e}</span><div><b>${t}</b><div class="sub">${s}</div></div></div></div>`;
+const S={
+welcome:['Chào mừng',`<div class="hero"><div class="logo">🧭</div><h2>Learning GPS AI</h2><div class="sub">Học bất cứ điều gì, ở mọi trình độ.<br>AI dẫn đường cho bạn đến mục tiêu.</div></div>
+${chips(['Tiểu học','THCS','THPT','Đại học','Đi làm','Ngoại ngữ','Lập trình','Nghệ thuật'])}
+<div class="card"><h3>🌍 Mọi môn học, mọi cấp độ</h3><div class="sub">Từ bài toán lớp 1 đến lập trình, y khoa, kinh doanh hay guitar – chỉ cần nói bạn muốn học gì.</div></div>
+<div class="card"><h3>🗺️ Lộ trình cá nhân hóa</h3><div class="sub">AI phân tích mục tiêu và tạo kế hoạch học riêng cho bạn.</div></div>
+<div class="card"><h3>📷 Chụp ảnh bài tập, giải từng bước</h3><div class="sub">Nhận diện đề chuẩn 99%, giải thích dễ hiểu.</div></div>
+${B('Bắt đầu ngay →','register')}${B('Đăng nhập','login','o')}`,0],
+login:['Đăng nhập',`<div class="logo s">🧭</div><div class="c"><h2>Chào mừng trở lại!</h2><div class="sub">Đăng nhập để tiếp tục hành trình học tập</div></div>
+${inp('✉️  Email hoặc số điện thoại')}${inp('🔒  Mật khẩu  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;👁')}
+<div class="row"><span class="sub">☑ Ghi nhớ tôi</span><button class="ghost">Quên mật khẩu?</button></div>
+${B('Đăng nhập →','home')}${soc}<div class="c sub">Chưa có tài khoản? <button class="ghost" data-go="register">Đăng ký</button></div>`,0],
+register:['Đăng ký',`<h2>Tạo tài khoản Learning GPS AI</h2><div class="sub">Cá nhân hóa trải nghiệm học tập của bạn</div>
+${inp('👤  Họ và tên')}${inp('✉️  Email / Số điện thoại')}
+<div class="sub">Trình độ hiện tại</div>${chips(['Tiểu học','THCS','THPT','Đại học','Đi làm'])}
+${inp('🔒  Mật khẩu')}<div class="bar"><i style="width:70%;background:var(--green)"></i></div><div class="sub" style="color:var(--green)">Độ mạnh: Khá</div>${inp('🔒  Xác nhận mật khẩu')}
+<div class="sub">☑ Tôi đồng ý Điều khoản dịch vụ và Chính sách bảo mật</div>
+${B('Tạo tài khoản ngay →','setup')}${soc}<div class="c sub">Đã có tài khoản? <button class="ghost" data-go="login">Đăng nhập</button></div>`,0],
+setup:['Chọn trình độ',`<h2>Bạn đang ở trình độ nào?</h2><div class="sub">Bước 1/2 • AI sẽ điều chỉnh độ khó cho phù hợp</div>
+${lv('🧸','Mầm non & Tiểu học','Lớp 1 – 5',0)}${lv('📘','THCS','Lớp 6 – 9',0)}${lv('🎓','THPT','Lớp 10 – 12',1)}${lv('🏛️','Đại học & Cao đẳng','Chuyên ngành bất kỳ',0)}${lv('💼','Chuyên môn & Người đi làm','Nâng cao kỹ năng nghề nghiệp',0)}
+${B('Tiếp tục →','goals')}`,0],
+goals:['Chọn môn học',`<h2>Bạn muốn học gì?</h2><div class="sub">Bước 2/2 • Học môn nào cũng được, từ cơ bản đến nâng cao</div>
+<div class="in">🔍  Nhập bất kỳ môn nào: Toán, Piano, Marketing...</div>
+<div class="grid4">${[['➗','Toán'],['🔬','Khoa học'],['🌐','Ngoại ngữ'],['💻','Lập trình'],['📖','Văn & Xã hội'],['📊','Kinh doanh'],['🎨','Nghệ thuật'],['🧠','Kỹ năng']].map((x,i)=>`<div class="tile ${i==3?'on':''}"><b>${x[0]}</b>${x[1]}</div>`).join('')}</div>
+<h3>Gợi ý cho bạn</h3>${chips(['Python cho người mới','IELTS 6.5+','Toán lớp 12','Guitar cơ bản','Giải tích Đại học'])}
+<div class="card lav"><div class="sub">✨ Không thấy môn bạn cần? Cứ gõ vào ô tìm kiếm – AI hỗ trợ mọi lĩnh vực.</div></div>${B('Tạo lộ trình với AI →','analysis')}`,0],
+analysis:['AI phân tích',`<div class="logo s">🧭</div><h3 class="c" style="color:var(--rd)">Learning GPS AI đang phân tích mục tiêu của bạn...</h3>
+<div class="bubble">Tôi muốn học Python trong 3 tháng để có thể tìm việc làm.</div>
+<div class="card"><b>AI đã hiểu mục tiêu của bạn:</b>${['Môn học: Python (Lập trình)','Mục tiêu: Tìm việc làm','Thời gian: 3 tháng','Trình độ hiện tại: Người mới'].map(x=>`<div>✅ ${x}</div>`).join('')}</div>
+${B('Tạo lộ trình học tập →','roadmap')}<div class="c sub">Quá trình này mất vài giây...</div>`,0],
+home:['Trang chủ',`<div class="row"><div class="row" style="justify-content:flex-start"><div class="num on">MH</div><div><div class="sub">Learning GPS AI</div><b>Chào Minh Hoàng!</b></div></div><span class="chip">🔥 5 ngày · ⭐ 1,450 XP</span></div>
+<div class="hero" style="align-items:flex-start;text-align:left"><div style="opacity:.85;font-size:12px">Trợ giảng AI 24/7 – mọi môn học</div><h2 style="font-size:21px">Hôm nay bạn muốn học gì?</h2><div class="row" style="justify-content:flex-start"><button class="btn w" data-go="scan">📷 Chụp bài tập</button><button class="btn w" style="background:var(--rd);color:#fff">💬 Hỏi AI</button></div></div>
+${B('🧭 Tạo lộ trình học với AI','goals')}
+<div class="card lav"><h3>🎯 Mục tiêu hôm nay</h3><div class="sub">Hoàn thành 2/3 nhiệm vụ (+50 XP)</div>${bar(66)}</div>
+<h3>Khóa học của bạn</h3>${prog('Python Developer',68)}${prog('Toán Giải tích 12',45)}${prog('English for Work',42)}${prog('Guitar cơ bản',20)}`,1],
+scan:['Chụp bài',`<div class="row"><h2>Chụp bài tập</h2><span class="chip">Mọi môn học</span></div>
+<div class="cam"><div class="paper">∫ x·sin(x) dx</div><div class="fr"></div><div class="sl"></div></div>
+<div class="c sub">Đặt đề bài vào khung, giữ máy ổn định để nhận diện chính xác</div>
+<div class="row" style="justify-content:space-around;padding:4px 10px"><div class="c sub">🖼️<br>Thư viện</div><button class="shut" data-act="shoot" aria-label="Chụp"></button><div class="c sub">⚡<br>Flash</div></div>
+${chips(['Toán','Vật lý','Hóa học','Tiếng Anh','Ngữ văn','Lập trình','Sinh học'])}<div class="card lav"><div class="sub">💡 Bấm nút tròn đỏ để chụp. AI sẽ đọc đề và giải từng bước.</div></div>`,0],
+solved:['Kết quả quét',`<div class="row"><h2>Kết quả quét</h2><span class="chip on">Nhận diện 99%</span></div>
+<div class="card"><div class="sub">Đề bài nhận diện được</div><b style="font-size:18px">Tính ∫ x·sin(x) dx</b><div class="chips"><span class="chip">Toán</span><span class="chip">Giải tích</span><span class="chip">THPT</span></div></div>
+<div class="card gr"><div style="font-size:12px">Kết quả</div><b style="font-size:19px">F(x) = -x·cos(x) + sin(x) + C</b></div>
+${step(1,'Bước 1','Chọn u = x, dv = sin(x)dx',1)}${step(2,'Bước 2','du = dx, v = -cos(x)',1)}${step(3,'Bước 3','Áp dụng ∫u dv = uv - ∫v du',1)}
+<div class="card lav"><b>🧒 Giải thích đơn giản</b><div class="sub">Giống bóc từng lớp vỏ bánh: bóc một lớp thì phần còn lại dễ hơn.</div></div>
+${B('✨ Tạo bài tập tương tự','quiz')}${B('📷 Chụp bài khác','scan','o')}`,0],
+roadmap:['Lộ trình',`<h2>Lộ trình học tập</h2><div class="card lav"><div class="row" style="justify-content:flex-start"><span style="font-size:32px">🐍</span><div><b style="font-size:17px">Python Developer</b><div class="sub">3 tháng • Người mới bắt đầu</div></div></div></div>
+${step(1,'Python Basics','Đã hoàn thành 8/8 bài học',2)}${step(2,'Core Python','Đang học • 3/10 bài học',1,'lesson')}${step(3,'Data Structures & Algorithms','Chưa bắt đầu',0)}${step(4,'Web Development','Chưa bắt đầu',0)}${step(5,'Build Project','Chưa bắt đầu',0)}${step(6,'Job Preparation','Chưa bắt đầu',0)}${B('Xem chi tiết lộ trình','plan')}`,2],
+plan:['Kế hoạch tuần',`<h2>Kế hoạch học tập</h2><div class="tabs"><div class="on">Tuần</div><div>Tháng</div></div><div class="c"><b>‹ Tuần 2 / 12 ›</b></div>
+${day('Thứ 2','Python cơ bản – Biến, kiểu dữ liệu',2)}${day('Thứ 3','Vòng lặp và cấu trúc điều kiện',2)}${day('Thứ 4','Thực hành bài tập',1,'lesson')}${day('Thứ 5','Hàm trong Python',0)}${day('Thứ 6','Bài tập nâng cao',0)}${day('Thứ 7','Ôn tập + Quiz',0,'quiz')}${day('CN','Nghỉ ngơi / Đọc sách',0)}
+<div class="card lav" style="font-size:13px">🤖 AI đã điều chỉnh kế hoạch này dựa trên tiến độ và kết quả quiz của bạn.</div>`,0],
+lesson:['Bài học',`<h2>Python cơ bản</h2><div class="sub">Bài 3/8 • Vòng lặp</div>${bar(75)}<div class="tabs"><div class="on">Lý thuyết</div><div>Thực hành</div></div>
+<div class="card"><h3 style="font-size:18px">Vòng lặp for trong Python</h3><div class="sub">Vòng lặp for giúp bạn lặp lại một khối lệnh nhiều lần.</div><pre>for i in range(5):\n    print(i)</pre></div>
+${B('Tiếp theo →','quiz')}<div class="row" style="justify-content:space-around"><span class="sub">🔖 Đánh dấu</span><span class="sub">📝 Ghi chú</span><span class="sub">💬 Hỏi AI</span></div>`,0],
+quiz:['Quiz',`<div class="row"><div><h2>Quiz</h2><div class="sub">Python Basics • Câu 3/5</div></div><b style="color:var(--green)">+20 XP</b></div>${bar(60)}
+<div class="card"><h3 style="font-size:16px">Kết quả của đoạn code sau là gì?</h3><pre>for i in range(5):\n    print(i)</pre></div>
+<div class="opt ok">A. 0 1 2 3 4 ✅</div><div class="opt">B. 1 2 3 4 5</div><div class="opt">C. 0 1 2 3 4 5</div><div class="opt">D. 1 2 3 4</div>
+<div class="card gr"><b>Chính xác! +20 XP</b><span style="color:#2a1215;font-size:13px">range(5) chạy từ 0 đến 4.</span></div>${B('Tiếp theo →','result')}`,0],
+result:['Kết quả',`<div class="c" style="font-size:64px">🤖</div><h2 class="c" style="font-size:26px">Tuyệt vời!</h2><div class="c sub">Bạn đã hoàn thành bài học này!</div>
+<div class="card"><div class="row"><b>Kết quả quiz</b><b style="color:var(--green)">80%</b></div><div class="sub">4/5 câu đúng</div><div class="bar"><i style="width:80%;background:var(--green)"></i></div></div>
+<div class="card lav"><b>💡 AI gợi ý</b><div style="font-size:13px">Hãy luyện thêm vòng lặp lồng nhau để nắm chắc hơn ở bài tiếp theo.</div></div>${B('Xem kế hoạch tiếp theo','plan')}<button class="ghost" data-go="home">Quay lại trang chủ</button>`,0]
+};
+const tabs=[['home','🏠','Trang chủ'],['scan','💬','Hỏi đáp'],['roadmap','🧭','Lộ trình'],['','📚','Thư viện'],['','📈','Tiến độ']];
+function go(k){const s=S[k];const e=document.getElementById('scr');e.innerHTML=s[1];e.scrollTop=0;
+document.getElementById('nav').innerHTML=s[2]?`<div class="nav">${tabs.map(t=>`<div class="${t[0]==k?'on':''}" ${t[0]?`data-go="${t[0]}"`:''}><b>${t[1]}</b>${t[2]}</div>`).join('')}</div>`:'';
+document.querySelectorAll('#sw button').forEach(b=>b.classList.toggle('on',b.dataset.go==k));}
+document.getElementById('sw').innerHTML=Object.keys(S).map(k=>`<button data-go="${k}">${S[k][0]}</button>`).join('');
+document.addEventListener('click',e=>{if(e.target.closest('[data-act="shoot"]')){const c=document.querySelector('.cam');if(c&&!c.querySelector('.ov')){c.insertAdjacentHTML('beforeend','<div class="ov"><div class="spin"></div>Đang nhận diện đề bài...<span style="font-weight:400;font-size:12px">Độ rõ nét 98%</span></div>');setTimeout(()=>go('solved'),1500);}return}const t=e.target.closest('[data-go]');if(t)go(t.dataset.go);const g=e.target.closest('.tile');if(g){document.querySelectorAll('.tile').forEach(x=>x.classList.remove('on'));g.classList.add('on')}const l=e.target.closest('.lvl');if(l){document.querySelectorAll('.lvl').forEach(x=>x.classList.remove('on'));l.classList.add('on')}});
+go('welcome');
+</script>
+</body>
+</html>
